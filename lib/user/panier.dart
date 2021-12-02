@@ -8,15 +8,11 @@ class PanierView extends StatefulWidget {
   _PanierViewState createState() => _PanierViewState();
 }
 
-
 class _PanierViewState extends State<PanierView> {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: Scaffold(
-            body: Text('Panier')
-        )
-    );
+        home: Scaffold(body: Text('Panier')));
   }
 }

@@ -8,15 +8,11 @@ class ProfilView extends StatefulWidget {
   _ProfilViewState createState() => _ProfilViewState();
 }
 
-
 class _ProfilViewState extends State<ProfilView> {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: Scaffold(
-            body: Text('Profil')
-        )
-    );
+        home: Scaffold(body: Text('Profil')));
   }
 }

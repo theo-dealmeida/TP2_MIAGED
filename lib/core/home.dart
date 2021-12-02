@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:tp2_miaged/pages/panier.dart';
-import 'package:tp2_miaged/pages/profil.dart';
+import 'package:tp2_miaged/user/panier.dart';
+import 'package:tp2_miaged/user/profil.dart';
 
-import 'acheter.dart';
+import '../acheter/acheter.dart';
 
 void home() => runApp(const HomeView());
 
@@ -16,8 +16,6 @@ class HomeView extends StatefulWidget {
 class _HomeViewState extends State<HomeView> {
   int _selectedIndex = 0;
 
-  static const TextStyle optionStyle =
-      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static const List<Widget> _widgetOptions = <Widget>[
     AcheterView(),
     PanierView(),
@@ -34,7 +32,7 @@ class _HomeViewState extends State<HomeView> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'LogIn',
+      title: 'Home',
       home: Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.white,

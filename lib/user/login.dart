@@ -1,8 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_core/firebase_core.dart';
 
-import 'home.dart';
+import '../core/home.dart';
 
 class LogInView extends StatefulWidget {
   const LogInView({Key? key}) : super(key: key);
@@ -52,12 +51,15 @@ class _LogInViewState extends State<LogInView> {
                 const Center(
                   child: Text(
                     'Connexion',
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30, color: Color(0xFFFFFFFF)),
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 30,
+                        color: Color(0xFFFFFFFF)),
                   ),
                 ),
                 const SizedBox(height: 20),
                 Center(
-                  child: Container(
+                  child: SizedBox(
                     width: 300,
                     child: TextFormField(
                       decoration: const InputDecoration(
@@ -78,7 +80,7 @@ class _LogInViewState extends State<LogInView> {
                 ),
                 const SizedBox(height: 10),
                 Center(
-                  child: Container(
+                  child: SizedBox(
                     width: 300,
                     child: TextFormField(
                       decoration: InputDecoration(
@@ -113,7 +115,10 @@ class _LogInViewState extends State<LogInView> {
                             SnackBar(content: Text('Ce compte n\'existe pas'));
 
                         const snackBarPwd =
-                        SnackBar(content: Text('Mot de passe incorrect'));
+                            SnackBar(content: Text('Mot de passe incorrect'));
+
+                        const snackBarError =
+                            SnackBar(content: Text('Une erreur est survenue'));
 
                         if (_formKey.currentState!.validate()) {
                           try {
@@ -129,24 +134,23 @@ class _LogInViewState extends State<LogInView> {
                                   .listen((event) {
                                 if (event.get("password") ==
                                     _passwordController.text) {
-                                  print('Connecté');
                                   Navigator.push(
                                     context,
-                                    MaterialPageRoute(builder: (context) => const HomeView()),
+                                    MaterialPageRoute(
+                                        builder: (context) => const HomeView()),
                                   );
                                 } else {
                                   ScaffoldMessenger.of(context)
                                       .showSnackBar(snackBarPwd);
-                                  print('Mot de passe incorrect');
                                 }
                               });
                             } else {
                               ScaffoldMessenger.of(context)
                                   .showSnackBar(snackBar);
-                              print('Ce login n\'existe pas');
                             }
                           } catch (e) {
-                            print(e.toString());
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(snackBarError);
                           }
                         }
                         return;

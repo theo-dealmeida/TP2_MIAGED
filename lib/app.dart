@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'pages/login.dart';
 
-void App() => runApp(const MyApp());
+import 'user/login.dart';
+
+void app() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -12,13 +13,9 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'MIAGED',
         home: Navigator(
-          pages: const [
-            MaterialPage(child: LogInView())
-          ],
-          onPopPage:(route, result) {
-            return route.didPop(result);
-          }
-        )
-    );
+            pages: const [MaterialPage(child: LogInView())],
+            onPopPage: (route, result) {
+              return route.didPop(result);
+            }));
   }
 }
