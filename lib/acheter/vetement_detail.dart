@@ -1,5 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+import '../globals.dart' as globals;
 
 class VetementDetailView extends StatefulWidget {
   final Map vetement;
@@ -53,7 +56,7 @@ class _VetementDetailViewState extends State<VetementDetailView> {
               child: Image.network(widget.vetement['image'],
                   width: 350, height: 350, fit: BoxFit.fitWidth),
             ),
-            Row( mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+            Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
               Text(
                 'Prix : ' + widget.vetement['prix'],
                 style: const TextStyle(
@@ -69,13 +72,21 @@ class _VetementDetailViewState extends State<VetementDetailView> {
                     color: Color(0xFFCCCCCC)),
               ),
             ]),
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 30.0),
-          child: ElevatedButton(
-            onPressed: () { debugPrint("Ajouté au panier"); },
-            child: const Text("Ajouter au panier")
-          )
-        )
+            Padding(
+                padding: const EdgeInsets.symmetric(vertical: 30.0),
+                child: ElevatedButton(
+                    onPressed: () {
+                      globals.currentUser.panier.add(widget.vetement);
+                      List<dynamic> list = [];
+                      list.add(Map<String, dynamic>.from(widget.vetement));
+                      FirebaseFirestore.instance
+                          .collection('users')
+                          .doc(globals.currentUser.login)
+                          .update({'panier': list});
+                      debugPrint("Ajout au panier du vêtement : " +
+                          globals.currentUser.panier.last.toString());
+                    },
+                    child: const Text("Ajouter au panier")))
           ]),
         ));
   }

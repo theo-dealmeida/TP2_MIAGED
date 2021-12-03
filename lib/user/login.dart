@@ -1,7 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:tp2_miaged/user/model/user.dart';
 
 import '../core/home.dart';
+import '../globals.dart' as globals;
 
 class LogInView extends StatefulWidget {
   const LogInView({Key? key}) : super(key: key);
@@ -134,6 +136,11 @@ class _LogInViewState extends State<LogInView> {
                                   .listen((event) {
                                 if (event.get("password") ==
                                     _passwordController.text) {
+                                  User user = User(
+                                      event.get("login"),
+                                      event.get("password"),
+                                      event.get("panier"));
+                                  globals.currentUser = user;
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
