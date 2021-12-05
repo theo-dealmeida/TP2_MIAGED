@@ -1,10 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:tp2_miaged/acheter/vetement_detail.dart';
 
 class AcheterView extends StatefulWidget {
-  const AcheterView({Key? key}) : super(key: key);
+  final String categ;
+
+  const AcheterView({Key? key, required this.categ}) : super(key: key);
 
   @override
   _AcheterViewState createState() => _AcheterViewState();
@@ -15,8 +18,11 @@ class _AcheterViewState extends State<AcheterView> {
   Widget build(BuildContext context) {
     CollectionReference users =
         FirebaseFirestore.instance.collection('vetements');
+
+    Future<DocumentSnapshot> future = users.doc("vetements").get();
+
     return FutureBuilder<DocumentSnapshot>(
-        future: users.doc("vetements").get(),
+        future: future,
         builder:
             (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
           if (snapshot.hasError) {
@@ -28,11 +34,34 @@ class _AcheterViewState extends State<AcheterView> {
           }
 
           Map<String, dynamic> data = {};
+          Map<String, dynamic> dataSaved = {};
+          Map<String, dynamic> dataHaut = {};
+          Map<String, dynamic> dataBas = {};
 
           if (snapshot.connectionState == ConnectionState.done) {
             data = {};
             data = snapshot.data!.data() as Map<String, dynamic>;
+            dataSaved = data;
+
+            debugPrint(dataSaved.length.toString());
+
+            if (widget.categ == 'bas') {
+              for (int i = 1; i < dataSaved.length; i++) {
+                if (data[i]['categ'] == 'bas' && dataSaved.isNotEmpty) {
+                  dataBas.addEntries(dataSaved[i]);
+                }
+              }
+              data = dataBas;
+            } else if (widget.categ == 'haut' && dataSaved.isNotEmpty) {
+              for (int i = 1; i < dataSaved.length; i++) {
+                if (data[i]['categ'] == 'haut') {
+                  dataHaut.addEntries(dataSaved[i]);
+                }
+              }
+              data = dataHaut;
+            }
           }
+
           return NotificationListener<ScrollNotification>(
             child: Scaffold(
               body: GridView.count(

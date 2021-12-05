@@ -62,10 +62,10 @@ class _VetementDetailViewState extends State<VetementDetailView> {
                 style: const TextStyle(
                     fontWeight: FontWeight.w500,
                     fontSize: 20,
-                    color: Color(0xFFCCCCCC)),
+                    color: Color(0xFFDDDDDD)),
               ),
               Text(
-                widget.vetement['taille'],
+                'Taille : ' + widget.vetement['taille'],
                 style: const TextStyle(
                     fontWeight: FontWeight.w500,
                     fontSize: 20,
@@ -76,8 +76,7 @@ class _VetementDetailViewState extends State<VetementDetailView> {
                 padding: const EdgeInsets.symmetric(vertical: 30.0),
                 child: ElevatedButton(
                     onPressed: () {
-                      globals.currentUser.panier.add(widget.vetement);
-                      List<dynamic> list = [];
+                      List<dynamic> list = globals.currentUser.panier;
                       list.add(Map<String, dynamic>.from(widget.vetement));
                       FirebaseFirestore.instance
                           .collection('users')

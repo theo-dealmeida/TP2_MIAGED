@@ -137,9 +137,14 @@ class _LogInViewState extends State<LogInView> {
                                 if (event.get("password") ==
                                     _passwordController.text) {
                                   User user = User(
-                                      event.get("login"),
-                                      event.get("password"),
-                                      event.get("panier"));
+                                    event.get("login"),
+                                    event.get("password"),
+                                    event.get("panier"),
+                                    event.get("birth"),
+                                    event.get("address"),
+                                    event.get("postal"),
+                                    event.get("city"),
+                                  );
                                   globals.currentUser = user;
                                   Navigator.push(
                                     context,
