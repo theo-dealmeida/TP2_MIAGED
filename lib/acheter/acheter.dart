@@ -43,21 +43,25 @@ class _AcheterViewState extends State<AcheterView> {
             data = snapshot.data!.data() as Map<String, dynamic>;
             dataSaved = data;
 
-            debugPrint(dataSaved.length.toString());
+            int index = 0;
 
             if (widget.categ == 'bas') {
-              for (int i = 1; i < dataSaved.length; i++) {
-                if (data[i]['categ'] == 'bas' && dataSaved.isNotEmpty) {
-                  dataBas.addEntries(dataSaved[i]);
+              dataSaved.forEach((key, value) {
+                if (value['categ'] == 'bas') {
+                  dataBas[index.toString()] = value;
+                  index++;
                 }
-              }
+              });
+              index = 0;
               data = dataBas;
             } else if (widget.categ == 'haut' && dataSaved.isNotEmpty) {
-              for (int i = 1; i < dataSaved.length; i++) {
-                if (data[i]['categ'] == 'haut') {
-                  dataHaut.addEntries(dataSaved[i]);
+              dataSaved.forEach((key, value) {
+                if (value['categ'] == 'haut') {
+                  dataHaut[index.toString()] = value;
+                  index++;
                 }
-              }
+              });
+              index = 0;
               data = dataHaut;
             }
           }

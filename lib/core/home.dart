@@ -39,11 +39,38 @@ class _HomeViewState extends State<HomeView> {
               length: 3,
               child: Scaffold(
                 appBar: AppBar(
+                  backgroundColor: Colors.white,
+                  title: SizedBox(
+                    width: 100,
+                    child: Image.asset('assets/images/MIAGED_Logo.png'),
+                  ),
+                  centerTitle: true,
                   bottom: const TabBar(
                     tabs: [
-                      Tab(icon: Icon(Icons.directions_car)),
-                      Tab(icon: Icon(Icons.directions_transit)),
-                      Tab(icon: Icon(Icons.directions_bike)),
+                      Tab(
+                          icon: Text(
+                        'Tout',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 17,
+                            color: Color(0xFF02837A)),
+                      )),
+                      Tab(
+                          icon: Text(
+                        'Haut',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 17,
+                            color: Color(0xFF02837A)),
+                      )),
+                      Tab(
+                          icon: Text(
+                        'Bas',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 17,
+                            color: Color(0xFF02837A)),
+                      )),
                     ],
                   ),
                 ),
@@ -113,12 +140,12 @@ class _HomeViewState extends State<HomeView> {
                     icon: Icon(Icons.account_circle_outlined),
                     label: 'Profil',
                   ),
-          ],
-          currentIndex: _selectedIndex,
-          selectedItemColor: const Color(0xFF02837A),
-          onTap: _onItemTapped,
-        ),
-      ),
+                ],
+                currentIndex: _selectedIndex,
+                selectedItemColor: const Color(0xFF02837A),
+                onTap: _onItemTapped,
+              ),
+            ),
     );
   }
 }
